@@ -9,3 +9,4 @@ plugins {
 
 }
 
+//Ctrl+Alt+Shift+s

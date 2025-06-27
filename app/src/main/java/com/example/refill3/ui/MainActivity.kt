@@ -15,7 +15,7 @@
 //        }
 //    }
 //}
-package com.example.refill3.ui.activity//error remove ".ui"
+package com.example.refill3//error remove ".ui"
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

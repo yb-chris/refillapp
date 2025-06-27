@@ -53,6 +53,7 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.firebase.crashlytics)
+    implementation(libs.firebase.firestore.ktx)
     kapt("androidx.room:room-compiler:2.7.1")
     // navigation
     implementation("androidx.navigation:navigation-compose:2.7.7")
@@ -70,12 +71,18 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:33.13.0"))
     implementation("com.google.firebase:firebase-analytics")
     // firebase authentication
-    implementation("com.google.firebase:firebase-auth-ktx")
+    implementation("com.google.firebase:firebase-auth-ktx:22.2.0")//remove:22.2.0 if not need
     // firebase database
     implementation("com.google.firebase:firebase-database-ktx")
     //firebase storage
     implementation("com.google.firebase:firebase-storage-ktx")
     // coil : image loader
+
+    implementation ("androidx.activity:activity-compose:1.8.0")
+    implementation ("androidx.compose.material3:material3:1.2.0")
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
+    implementation ("androidx.navigation:navigation-compose:2.7.0")
+
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)

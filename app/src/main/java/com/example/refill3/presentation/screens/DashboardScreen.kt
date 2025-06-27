@@ -13,7 +13,7 @@ fun DashboardScreen(navController: NavHostController) {
     Column {
         Text("Your Orders")
         orders.forEach { order ->
-            Text("Order ID: ${order.id}, Amount: ${order.amount} bottles")
+            Text(text = "Order ID: ${order.id}, Amount: ${order.amount} bottles")
         }
         Button(onClick = { navController.navigate("order") }) {
             Text("New Order")

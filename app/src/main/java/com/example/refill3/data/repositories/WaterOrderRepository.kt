@@ -1,14 +1,52 @@
 package com.example.refill3.data.repositories
 
 import com.example.refill3.data.models.WaterOrder
+import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.tasks.await
 
-object WaterOrderRepository {
-    private val orders = mutableListOf<WaterOrder>()
-    fun createOrder(order: WaterOrder) = orders.add(order)
-    fun getOrders(userId: String) = orders.filter { it.userId == userId }
-    fun updateOrder(updatedOrder: WaterOrder) {
-        val index = orders.indexOfFirst { it.id == updatedOrder.id }
-        if (index != -1) orders[index] = updatedOrder
+class WaterOrderRepository {
+    private val db = FirebaseFirestore.getInstance()
+    private val ordersCollection = db.collection("orders")
+
+    suspend fun createOrder(order: WaterOrder): String? {
+        return try {
+            val document = ordersCollection.add(order).await()
+            document.id
+        } catch (e: Exception) {
+            null
+        }
     }
-    fun deleteOrder(id: Int) = orders.removeIf { it.id == id }
-}
+
+    suspend fun getOrders(userId: String): List<WaterOrder> {
+        return try {
+            ordersCollection.whereEqualTo("userId", userId).get().await()
+                .toObjects(WaterOrder::class.java)
+        } catch (e: Exception) {
+            emptyList()
+        }
+    }
+
+    suspend fun updateOrder(order: WaterOrder): Boolean {
+        return try {
+            ordersCollection.document(order.id).set(order).await()
+            true
+        } catch (e: Exception) {
+            false
+        }
+    }
+
+    suspend fun deleteOrder(orderId: String): Boolean {
+        return try {
+            ordersCollection.document(orderId).delete().await()
+            true
+        } catch (e: Exception) {
+            false
+        }
+    }
+
+    companion object {
+        fun getOrders(s: String): Any {""
+
+        }
+    }
+}//remove this (not necessary)

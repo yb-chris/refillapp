@@ -1,14 +1,19 @@
 package com.example.refill3.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.refill3.presentation.screens.ConfirmationScreen
 import com.example.refill3.presentation.screens.auth.LoginScreen
 import com.example.refill3.presentation.screens.auth.SignUpScreen
 import com.example.refill3.presentation.screens.DashboardScreen
 import com.example.refill3.presentation.screens.OrderScreen
 import com.example.refill3.presentation.screens.ForgotPassword
+import com.example.refill3.presentation.screens.HomeScreen
+import com.example.refill3.presentation.screens.PaymentScreen
+import com.example.refill3.presentation.screens.SummaryScreen
 
 @Composable
 fun RefillNavGraph(navController: NavHostController) {
@@ -29,6 +34,26 @@ fun RefillNavGraph(navController: NavHostController) {
         composable(route = "forgotpassword") {
             ForgotPassword(navController)
         }
+        composable(route = "home") {
+            HomeScreen(navController, viewModel())
+        }
+        composable(route = "order") {
+            OrderScreen(navController, viewModel())
+        }
+        composable(route = "payment") {
+            PaymentScreen(navController, viewModel())
+        }
+        composable(route = "summary") {
+            SummaryScreen(navController)
+        }
+        composable(route = "confirmation") {
+            ConfirmationScreen(navController)
+        }
+        composable(route = "dashboard") {
+            DashboardScreen(navController)
+        }
+
+
     }
 }
 
