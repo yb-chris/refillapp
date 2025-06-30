@@ -11,7 +11,7 @@ import com.example.refill3.presentation.viewmodel.OrderViewModel
 
 @Composable
 fun SummaryScreen(navController: NavController, orderViewModel: OrderViewModel) {
-    val price = orderViewModel.liters * 10 // 10 KES per liter
+    val price = orderViewModel.liters//* 10  // 10 KES per liter
 
     Column(
         modifier = Modifier

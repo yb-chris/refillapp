@@ -14,6 +14,8 @@ import com.example.refill3.presentation.screens.ForgotPassword
 import com.example.refill3.presentation.screens.HomeScreen
 import com.example.refill3.presentation.screens.PaymentScreen
 import com.example.refill3.presentation.screens.SummaryScreen
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.refill3.presentation.viewmodel.OrderViewModel
 
 @Composable
 fun RefillNavGraph(navController: NavHostController) {
@@ -28,9 +30,9 @@ fun RefillNavGraph(navController: NavHostController) {
         composable(route = "dashboard") {
             DashboardScreen(navController)
         }
-        composable(route = "order") {
-            OrderScreen(navController)
-        }
+//        composable(route = "order") {
+//            OrderScreen(navController)
+//        }
         composable(route = "forgotpassword") {
             ForgotPassword(navController)
         }
@@ -44,10 +46,11 @@ fun RefillNavGraph(navController: NavHostController) {
             PaymentScreen(navController, viewModel())
         }
         composable(route = "summary") {
-            SummaryScreen(navController)
+            SummaryScreen(navController, viewModel())
         }
+
         composable(route = "confirmation") {
-            ConfirmationScreen(navController)
+            ConfirmationScreen(navController, viewModel())
         }
         composable(route = "dashboard") {
             DashboardScreen(navController)

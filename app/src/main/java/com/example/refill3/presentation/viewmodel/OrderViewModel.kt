@@ -4,24 +4,34 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 data class OrderItem(val id: String, val name: String, val price: Double, var quantity: Int,
-                     val liters:Int)
+                     val liters:Double=0.0,val paymentStatus:String="")
 
 class OrderViewModel : ViewModel() {
-    var paymentStatus: String
-    private val liters = MutableStateFlow<List<liters>>(emptyList())
-    var liters: StateFlow<List<OrderItem>> =liters
-//
-//    private val
-//    var paymentStatus: MutableStateFlow<List<payment>>
+
+    private val _paymentStatus = MutableStateFlow("")
+    val paymentStatus: StateFlow<String> = _paymentStatus.asStateFlow()
+//    private val _paymentStatus=MutableStateFlow()
+//   var paymentStatus: String
+
+//    private val _liters = MutableStateFlow(0.0)
+//    var liters: MutableStateFlow<Double> =_liters
 
     private val _orderItems = MutableStateFlow<List<OrderItem>>(emptyList())
     val orderItems: StateFlow<List<OrderItem>> = _orderItems
 
     private val _totalPrice = MutableStateFlow(0.0)
     val totalPrice: StateFlow<Double> = _totalPrice
+
+    private val _liters = MutableStateFlow(5)
+    val liters: StateFlow<Int> = _liters.asStateFlow() // Line 14 adjusted
+
+    fun placeOrder() {
+        _liters.value = 10 // Example update
+    }
 
     fun addItem(item: OrderItem) {
         val currentItems = _orderItems.value.toMutableList()

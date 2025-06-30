@@ -25,12 +25,12 @@ fun ConfirmationScreen(navController: NavController, orderViewModel: OrderViewMo
             style = MaterialTheme.typography.titleLarge,
             modifier = Modifier.padding(bottom = 16.dp)
         )
-        Text("Thank you! Your order of ${orderViewModel.liters} liters has been placed.")
+        Text(text="Thank you! Your order of ${orderViewModel.liters} liters has been placed.")
 
         Button(
             onClick = {
-                orderViewModel.liters = 0
-                orderViewModel.paymentStatus = "pending"
+//                orderViewModel.liters = 0.0
+//                orderViewModel.paymentStatus = "pending"
                 navController.navigate("home") {
                     popUpTo("home") { inclusive = true }
                 }

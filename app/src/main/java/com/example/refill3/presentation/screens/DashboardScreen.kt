@@ -9,14 +9,14 @@ import com.example.refill3.data.repositories.WaterOrderRepository
 
 @Composable
 fun DashboardScreen(navController: NavHostController) {
-    val orders = WaterOrderRepository.getOrders("loggedInUser")
+//    val orders = WaterOrderRepository.getOrders("loggedInUser")
     Column {
         Text("Your Orders")
-        orders.forEach { order ->
-            Text(text = "Order ID: ${order.id}, Amount: ${order.amount} bottles")
+//        orders.forEach { order ->
+//            Text(text = "Order ID: ${order.id}, Amount: ${order.amount} bottles")
         }
         Button(onClick = { navController.navigate("order") }) {
             Text("New Order")
         }
     }
-}
+//}

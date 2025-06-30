@@ -44,9 +44,17 @@ class WaterOrderRepository {
         }
     }
 
-    companion object {
-        fun getOrders(s: String): Any {""
-
-        }
-    }
+//    companion object {
+//       fun getOrderCount(): Int {
+////           if (someCondition) {
+//               return 10
+//           }
+//            return 0 // Default return value
+//        }
+//    }
+//    companion object {
+//    fun getOrders(status: String): Any {
+//
+//    }
+//}
 }//remove this (not necessary)

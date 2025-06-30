@@ -1,7 +1,7 @@
 package com.example.refill3.presentation.screens
 
 import android.app.Activity
-import android.text.Layout
+import android.content.Context
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -18,17 +18,22 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import com.example.refill3.presentation.viewmodel.AuthViewModel
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
 
 @Composable
-fun AuthenticationScreen(navController: NavHostController, viewModel: AuthViewModel = viewModel()) {
+fun AuthenticationScreen(
+    navController: NavController,
+    authViewModel: AuthViewModel = viewModel()
+) {
     var phoneNumber by remember { mutableStateOf("") }
     var code by remember { mutableStateOf("") }
     var isCodeSent by remember { mutableStateOf(false) }
+    val context = LocalContext.current
 
     Column(
         modifier = Modifier
@@ -40,12 +45,12 @@ fun AuthenticationScreen(navController: NavHostController, viewModel: AuthViewMo
         if (!isCodeSent) {
             TextField(value = phoneNumber, onValueChange = { phoneNumber = it }, label = { Text("Phone Number (+254)") })
             Button(onClick = {
-                viewModel.startPhoneNumberVerification(
+                authViewModel.startPhoneNumberVerification(
                     phoneNumber,
-                    LocalContext.current as Activity,
+                    context as Activity,
                     object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
                         override fun onVerificationCompleted(credential: PhoneAuthCredential) {
-                            viewModel.signInWithPhoneAuthCredential(credential, { navController.navigate("main") }, {})
+                            authViewModel.signInWithPhoneAuthCredential(credential, onSuccess =  { navController.navigate("main") }, onFailure = {})
                         }
 
                         override fun onVerificationFailed(e: FirebaseException) {
@@ -53,7 +58,7 @@ fun AuthenticationScreen(navController: NavHostController, viewModel: AuthViewMo
                         }
 
                         override fun onCodeSent(verificationId: String, token: PhoneAuthProvider.ForceResendingToken) {
-                            viewModel.storeVerificationId(verificationId)
+                            authViewModel.storeVerificationId(verificationId)
                             isCodeSent = true
                         }
                     }
@@ -64,7 +69,7 @@ fun AuthenticationScreen(navController: NavHostController, viewModel: AuthViewMo
         } else {
             TextField(value = code, onValueChange = { code = it }, label = { Text("Verification Code") })
             Button(onClick = {
-                viewModel.verifyCode(code, { navController.navigate("main") }, { /* Show error */ })
+                authViewModel.verifyCode(code, { navController.navigate("main") }, { /* Show error */ })
             }) {
                 Text("Verify")
             }
